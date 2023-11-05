@@ -96,7 +96,7 @@ public class FieldOriented extends LinearOpMode {
             robot.frontRightMotor.setPower(frontRightPower * maxMotorSpeed);
             robot.backRightMotor.setPower(backRightPower * maxMotorSpeed);
             robot.backLeftMotor.setPower(backLeftPower * maxMotorSpeed);
-            robot.IntakeMotor.setPower(i);
+            robot.intakeMotor.setPower(i);
 
 
 

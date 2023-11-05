@@ -50,8 +50,8 @@ public class LinearTeleOp extends LinearOpMode {
             double yaw     =  gamepad1.right_stick_x;
 
 
-            double axial2 =  -gamepad2.left_stick_y;
-            double lateral2 =  gamepad2.left_stick_x * 1.1;
+//            double axial2 =  -gamepad2.left_stick_y;
+//            double lateral2 =  gamepad2.left_stick_x * 1.1;
             double yaw2     =  gamepad2.right_stick_x;
 
 
@@ -74,9 +74,9 @@ public class LinearTeleOp extends LinearOpMode {
                 rightFrontPower /= max;
                 leftBackPower   /= max;
                 rightBackPower  /= max;
-                axial2 /=max;
+//                axial2 /=max;
                 i /= max;
-                (lateral2)/=max;
+//                (lateral2)/=max;
                 yaw2 /=max;
             }
             if(gamepad1.right_bumper){
@@ -90,11 +90,22 @@ public class LinearTeleOp extends LinearOpMode {
 
             }
 
+            if (gamepad2.dpad_down) {
+                HW.slideLeftMotor.setTargetPosition(Constants.slideGroundLevelTicks);
+                HW.slideRightMotor.setTargetPosition(Constants.slideGroundLevelTicks);
+            } else if (gamepad2.dpad_up) {
+                HW.slideLeftMotor.setTargetPosition(Constants.highSlideTicks);
+                HW.slideRightMotor.setTargetPosition(Constants.highSlideTicks);
+            } else if (gamepad2.dpad_right) {
+                HW.slideLeftMotor.setTargetPosition(Constants.lowSlideTicks);
+                HW.slideRightMotor.setTargetPosition(Constants.lowSlideTicks);
+            }
 
-            axial2 = axial2/1.5;
 
-            lateral2 = lateral2/1.5;
-
+//            axial2 = axial2/1.5;
+//
+//            lateral2 = lateral2/1.5;
+//
             yaw2 = yaw2/1.5;
 
             // Send calculated power to wheels
@@ -102,18 +113,18 @@ public class LinearTeleOp extends LinearOpMode {
             HW.frontRightMotor.setPower(rightFrontPower);
             HW.backLeftMotor.setPower(leftBackPower);
             HW.backRightMotor.setPower(rightBackPower);
-            HW.IntakeMotor.setPower(i);
+            HW.intakeMotor.setPower(i);
             HW.actuatorMotor.setPower(yaw2);
-            HW.slideRightMotor.setPower(axial2);
-            HW.slideLeftMotor.setPower(axial2);
+//            HW.slideRightMotor.setPower(axial2);
+//            HW.slideLeftMotor.setPower(axial2);
 
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
-            telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
-            telemetry.addData("Intake Operational: ", HW.IntakeMotor.isBusy());
+//            telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
+            telemetry.addData("Intake Operational: ", HW.intakeMotor.isBusy());
             telemetry.addData("Intake Number: ", i);
             telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.frontLeftMotor.getCurrentPosition());
             telemetry.addData("frontLeftMotor Operational: ", HW.frontLeftMotor.isBusy());
