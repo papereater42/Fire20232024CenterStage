@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -99,10 +98,10 @@ public class LinearTeleOp extends LinearOpMode {
             yaw2 = yaw2/1.5;
 
             // Send calculated power to wheels
-            HW.FrontLeftMotor.setPower(leftFrontPower);
-            HW.FrontRightMotor.setPower(rightFrontPower);
-            HW.BackLeftMotor.setPower(leftBackPower);
-            HW.BackRightMotor.setPower(rightBackPower);
+            HW.frontLeftMotor.setPower(leftFrontPower);
+            HW.frontRightMotor.setPower(rightFrontPower);
+            HW.backLeftMotor.setPower(leftBackPower);
+            HW.backRightMotor.setPower(rightBackPower);
             HW.IntakeMotor.setPower(i);
             HW.actuatorMotor.setPower(yaw2);
             HW.slideRightMotor.setPower(axial2);
@@ -116,14 +115,14 @@ public class LinearTeleOp extends LinearOpMode {
             telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
             telemetry.addData("Intake Operational: ", HW.IntakeMotor.isBusy());
             telemetry.addData("Intake Number: ", i);
-            telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.FrontLeftMotor.getCurrentPosition());
-            telemetry.addData("frontLeftMotor Operational: ", HW.FrontLeftMotor.isBusy());
-            telemetry.addData("Current frontRightMotor Encoder Position: ", HW.FrontRightMotor.getCurrentPosition());
-            telemetry.addData("frontRightMotor Operational: ", HW.FrontRightMotor.isBusy());
-            telemetry.addData("Current backLeftMotor Encoder Position: ", HW.BackLeftMotor.getCurrentPosition());
-            telemetry.addData("backLeftMotor Operational: ", HW.BackLeftMotor.isBusy());
-            telemetry.addData("Current backRightMotor Encoder Position: ", HW.BackRightMotor.getCurrentPosition());
-            telemetry.addData("backRightMotor Operational: ", HW.BackRightMotor.isBusy());
+            telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.frontLeftMotor.getCurrentPosition());
+            telemetry.addData("frontLeftMotor Operational: ", HW.frontLeftMotor.isBusy());
+            telemetry.addData("Current frontRightMotor Encoder Position: ", HW.frontRightMotor.getCurrentPosition());
+            telemetry.addData("frontRightMotor Operational: ", HW.frontRightMotor.isBusy());
+            telemetry.addData("Current backLeftMotor Encoder Position: ", HW.backLeftMotor.getCurrentPosition());
+            telemetry.addData("backLeftMotor Operational: ", HW.backLeftMotor.isBusy());
+            telemetry.addData("Current backRightMotor Encoder Position: ", HW.backRightMotor.getCurrentPosition());
+            telemetry.addData("backRightMotor Operational: ", HW.backRightMotor.isBusy());
             telemetry.update();
 
             telemetry.update();

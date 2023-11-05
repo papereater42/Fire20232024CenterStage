@@ -2,24 +2,20 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.hardware.motors.RevRoboticsUltraPlanetaryHdHexMotor;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import com.qualcomm.hardware.bosch.BHI260IMU;
 
 public class FireHardwareMap {
     //create motors
-    public DcMotor FrontRightMotor = null;
-    public DcMotor FrontLeftMotor = null;
-    public DcMotor BackRightMotor = null;
-    public DcMotor BackLeftMotor = null;
+    public DcMotor frontRightMotor = null;
+    public DcMotor frontLeftMotor = null;
+    public DcMotor backRightMotor = null;
+    public DcMotor backLeftMotor = null;
 
     public DcMotor slideLeftMotor = null;
 
@@ -29,6 +25,11 @@ public class FireHardwareMap {
 
     //create servos
     public DcMotor IntakeMotor = null;
+    public Servo boxLeftServo = null;
+    public Servo boxRightServo = null;
+    public Servo boxOpenCloseServo = null;
+    public Servo maintainIntakeServo = null;
+    public Servo hookServo = null;
 
     public BNO055IMU imu = null;
 
@@ -46,10 +47,10 @@ public class FireHardwareMap {
     private void initialize(com.qualcomm.robotcore.hardware.HardwareMap hwmap){
         HardwareMap = hwmap;
         //the name of device should change based on name
-        FrontRightMotor = HardwareMap.get(DcMotor.class, "frontRightMotor");
-        FrontLeftMotor = HardwareMap.get(DcMotor.class, "frontLeftMotor");
-        BackRightMotor = HardwareMap.get(DcMotor.class, "backRightMotor");
-        BackLeftMotor = HardwareMap.get(DcMotor.class, "backLeftMotor");
+        frontRightMotor = HardwareMap.get(DcMotor.class, "frontRightMotor");
+        frontLeftMotor = HardwareMap.get(DcMotor.class, "frontLeftMotor");
+        backRightMotor = HardwareMap.get(DcMotor.class, "backRightMotor");
+        backLeftMotor = HardwareMap.get(DcMotor.class, "backLeftMotor");
         IntakeMotor = HardwareMap.get(DcMotor.class, "intakeMotor");
         actuatorMotor = HardwareMap.get(DcMotor.class, "actuatorMotor");
         slideLeftMotor = HardwareMap.get(DcMotor.class, "slideLeftMotor");
@@ -62,10 +63,10 @@ public class FireHardwareMap {
 
         //Set up motor direction
 
-        FrontRightMotor.setDirection(DcMotor.Direction.FORWARD);
-        FrontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-        BackRightMotor.setDirection(DcMotor.Direction.FORWARD);
-        BackLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         IntakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         slideLeftMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -74,10 +75,10 @@ public class FireHardwareMap {
         actuatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //Set motor mode
-        FrontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FrontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BackRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BackLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
@@ -87,19 +88,19 @@ public class FireHardwareMap {
 
         //Set zero power behavior
 
-        FrontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        FrontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BackRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BackLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slideRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slideLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         actuatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //Set 0 power
-        FrontRightMotor.setPower(0);
-        FrontLeftMotor.setPower(0);
-        BackRightMotor.setPower(0);
-        BackLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        frontLeftMotor.setPower(0);
+        backRightMotor.setPower(0);
+        backLeftMotor.setPower(0);
         IntakeMotor.setPower(0);
         slideLeftMotor.setPower(0);
         slideRightMotor.setPower(0);
