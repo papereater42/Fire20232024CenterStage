@@ -26,8 +26,8 @@ public class FireHardwareMap {
     public DcMotor intakeMotor = null;
     public Servo boxLeftServo = null;
     public Servo boxRightServo = null;
-    public Servo boxOpenCloseServo = null;
-    public Servo maintainIntakeServo = null;
+    public Servo doorServo = null;
+    public Servo separatorServo = null;
     public Servo hookServo = null;
 
     public BNO055IMU imu = null;
@@ -55,13 +55,14 @@ public class FireHardwareMap {
         slideLeftMotor = HardwareMap.get(DcMotor.class, "slideLeftMotor");
         slideRightMotor = HardwareMap.get(DcMotor.class, "slideRightMotor");
 
-
-
         //Making servo
-        //leftServo = HardwareMap.get(Servo.class, "leftServo");
+        boxLeftServo = HardwareMap.get(Servo.class, "leftServo");
+        boxRightServo = HardwareMap.get(Servo.class, "rightServo");
+        separatorServo = HardwareMap.get(Servo.class, "separatorServo");
+        doorServo = HardwareMap.get(Servo.class, "doorServo");
+        hookServo = HardwareMap.get(Servo.class, "hookServo");
 
         //Set up motor direction
-
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         backRightMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -72,6 +73,12 @@ public class FireHardwareMap {
         slideRightMotor.setDirection((DcMotor.Direction.FORWARD));
 
         actuatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        boxLeftServo.setDirection(Servo.Direction.REVERSE);
+        boxRightServo.setDirection(Servo.Direction.FORWARD);
+        separatorServo.setDirection(Servo.Direction.FORWARD);
+        doorServo.setDirection(Servo.Direction.FORWARD);
+        hookServo.setDirection(Servo.Direction.FORWARD);
 
         //Set motor mode
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -93,6 +100,7 @@ public class FireHardwareMap {
         slideRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slideLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         actuatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         //Set 0 power
         frontRightMotor.setPower(0);
         frontLeftMotor.setPower(0);
@@ -102,6 +110,8 @@ public class FireHardwareMap {
         slideLeftMotor.setPower(0);
         slideRightMotor.setPower(0);
         actuatorMotor.setPower(0);
+
+
 
 
 
