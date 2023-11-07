@@ -16,6 +16,22 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name="Robot Oriented TeleOp", group="Linear Opmode")
 public class LinearTeleOp extends LinearOpMode {
 
+    /*
+    Controls for gamepad2
+    Dpad down - lower slides
+    Dpad up - raise slides to high level
+    Dpad right - riase slides to mid level
+    Y - open door
+    B - close door
+    A - tilt box to scoring position
+    X - return box to 0
+    Left bumper - toggle separator
+    Right bumper - toggle hook servo up or down
+    Left joystick y - spin intake wheels
+    Right joystick x - actuator motor
+     */
+
+
     //ServoImplEx servo;
     //PwmControl.PwmRange range = new PwmControl.PwmRange(533,2425);
     // Declare OpMode members for each of the 4 motors.
@@ -38,6 +54,9 @@ public class LinearTeleOp extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        boolean separated = false;
+        boolean hookUp = false;
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             double max;
@@ -50,7 +69,7 @@ public class LinearTeleOp extends LinearOpMode {
             double yaw     =  gamepad1.right_stick_x;
 
 
-//            double axial2 =  -gamepad2.left_stick_y;
+            double axial2 =  -gamepad2.left_stick_y;
 //            double lateral2 =  gamepad2.left_stick_x * 1.1;
             double yaw2     =  gamepad2.right_stick_x;
 
@@ -61,6 +80,8 @@ public class LinearTeleOp extends LinearOpMode {
             double rightFrontPower = axial - lateral - yaw;
             double leftBackPower   = axial - lateral + yaw;
             double rightBackPower  = axial + lateral - yaw;
+
+            double intakeWheelPower = axial2;
 
 
             // Normalize the values so no wheel power exceeds 100%
@@ -87,7 +108,6 @@ public class LinearTeleOp extends LinearOpMode {
                 rightFrontPower /= 2;
                 leftBackPower   /= 2;
                 rightBackPower  /= 2;
-
             }
 
             if (gamepad2.dpad_down) {
@@ -100,6 +120,46 @@ public class LinearTeleOp extends LinearOpMode {
                 HW.slideLeftMotor.setTargetPosition(Constants.lowSlideTicks);
                 HW.slideRightMotor.setTargetPosition(Constants.lowSlideTicks);
             }
+
+            if (gamepad2.y) {
+                HW.doorServo.setPosition(0.3);
+            }
+
+            if (gamepad2.b) {
+                HW.doorServo.setPosition(0.0);
+            }
+
+            if (gamepad2.a) {
+                HW.boxRightServo.setPosition(0.3);
+                HW.boxLeftServo.setPosition(0.3);
+            }
+
+            if (gamepad2.x) {
+                HW.boxLeftServo.setPosition(0.0);
+                HW.boxRightServo.setPosition(0.0);
+            }
+
+            if (gamepad2.left_bumper) {
+                separated = !separated;
+            }
+
+            if (separated) {
+                HW.separatorServo.setPosition(0.3);
+            } else {
+                HW.separatorServo.setPosition(0.0);
+            }
+
+            if (gamepad2.right_bumper) {
+                hookUp = !hookUp;
+            }
+
+            if (hookUp) {
+                HW.hookServo.setPosition(0.6);
+            } else {
+                HW.hookServo.setPosition(0.0);
+            }
+
+
 
 
 //            axial2 = axial2/1.5;
@@ -124,16 +184,16 @@ public class LinearTeleOp extends LinearOpMode {
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
 //            telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
-            telemetry.addData("Intake Operational: ", HW.intakeMotor.isBusy());
-            telemetry.addData("Intake Number: ", i);
-            telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.frontLeftMotor.getCurrentPosition());
-            telemetry.addData("frontLeftMotor Operational: ", HW.frontLeftMotor.isBusy());
-            telemetry.addData("Current frontRightMotor Encoder Position: ", HW.frontRightMotor.getCurrentPosition());
-            telemetry.addData("frontRightMotor Operational: ", HW.frontRightMotor.isBusy());
-            telemetry.addData("Current backLeftMotor Encoder Position: ", HW.backLeftMotor.getCurrentPosition());
-            telemetry.addData("backLeftMotor Operational: ", HW.backLeftMotor.isBusy());
-            telemetry.addData("Current backRightMotor Encoder Position: ", HW.backRightMotor.getCurrentPosition());
-            telemetry.addData("backRightMotor Operational: ", HW.backRightMotor.isBusy());
+//            telemetry.addData("Intake Operational: ", HW.intakeMotor.isBusy());
+//            telemetry.addData("Intake Number: ", i);
+//            telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.frontLeftMotor.getCurrentPosition());
+//            telemetry.addData("frontLeftMotor Operational: ", HW.frontLeftMotor.isBusy());
+//            telemetry.addData("Current frontRightMotor Encoder Position: ", HW.frontRightMotor.getCurrentPosition());
+//            telemetry.addData("frontRightMotor Operational: ", HW.frontRightMotor.isBusy());
+//            telemetry.addData("Current backLeftMotor Encoder Position: ", HW.backLeftMotor.getCurrentPosition());
+//            telemetry.addData("backLeftMotor Operational: ", HW.backLeftMotor.isBusy());
+//            telemetry.addData("Current backRightMotor Encoder Position: ", HW.backRightMotor.getCurrentPosition());
+//            telemetry.addData("backRightMotor Operational: ", HW.backRightMotor.isBusy());
             telemetry.update();
 
             telemetry.update();
