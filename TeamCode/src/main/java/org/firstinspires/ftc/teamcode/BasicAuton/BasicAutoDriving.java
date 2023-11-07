@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.BasicAuton;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Autonomous(name="BasicAuton")
 public class BasicAutoDriving {
 
     public DcMotor frontLeftMotor = null;

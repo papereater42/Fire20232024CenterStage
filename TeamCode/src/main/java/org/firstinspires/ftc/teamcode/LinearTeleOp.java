@@ -173,10 +173,11 @@ public class LinearTeleOp extends LinearOpMode {
             HW.frontRightMotor.setPower(rightFrontPower);
             HW.backLeftMotor.setPower(leftBackPower);
             HW.backRightMotor.setPower(rightBackPower);
-            HW.intakeMotor.setPower(i);
+            HW.intakeMotor.setPower(intakeWheelPower/1.2);
             HW.actuatorMotor.setPower(yaw2);
 //            HW.slideRightMotor.setPower(axial2);
 //            HW.slideLeftMotor.setPower(axial2);
+
 
 
             // Show the elapsed game time and wheel power.

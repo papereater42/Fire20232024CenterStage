@@ -111,6 +111,12 @@ public class FireHardwareMap {
         slideRightMotor.setPower(0);
         actuatorMotor.setPower(0);
 
+        boxLeftServo.setPosition(0.0);
+        boxRightServo.setPosition(0.0);
+        separatorServo.setPosition(0.0);
+        doorServo.setPosition(0.0);
+        hookServo.setPosition(0.0);
+
 
 
 
