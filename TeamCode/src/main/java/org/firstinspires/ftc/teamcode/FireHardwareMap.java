@@ -107,8 +107,6 @@ public class FireHardwareMap {
         backRightMotor.setPower(0);
         backLeftMotor.setPower(0);
         intakeMotor.setPower(0);
-        slideLeftMotor.setPower(0);
-        slideRightMotor.setPower(0);
         actuatorMotor.setPower(0);
 
 //        boxLeftServo.setPower(0.0);
@@ -117,6 +115,16 @@ public class FireHardwareMap {
         doorServo.setPower(0.0);
         hookServo.setPower(0.0);
 
+
+
+        slideLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideLeftMotor.setTargetPosition(0);
+        slideRightMotor.setTargetPosition(0);
+        slideLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideLeftMotor.setPower(0.6);
+        slideRightMotor.setPower(0.6);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         //return value of radians

@@ -123,10 +123,10 @@ public class LinearTeleOp extends LinearOpMode {
 
             if (gamepad2.y) {
                 HW.doorServo.setPower(0.8);
-            }
-
-            if (gamepad2.b) {
-                HW.doorServo.setPower(0.1);
+            } else if (gamepad2.b) {
+                HW.doorServo.setPower(-0.8);
+            } else {
+                HW.doorServo.setPower(0.0);
             }
 
 
@@ -188,6 +188,7 @@ public class LinearTeleOp extends LinearOpMode {
 //            telemetry.addData("backRightMotor Operational: ", HW.backRightMotor.isBusy());
             telemetry.addData("slideLeftMotorTicks target ", HW.slideLeftMotor.getTargetPosition());
             telemetry.addData("boxLeftServo pow: ", HW.boxLeftServo.getPower());
+            telemetry.addData("doorServo power: ", HW.doorServo.getPower());
             telemetry.update();
 
         }
