@@ -122,21 +122,21 @@ public class LinearTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.y) {
-                HW.doorServo.setPosition(0.3);
+                HW.doorServo.setPower(0.8);
             }
 
             if (gamepad2.b) {
-                HW.doorServo.setPosition(0.0);
+                HW.doorServo.setPower(0.0);
             }
 
             if (gamepad2.a) {
-                HW.boxRightServo.setPosition(0.3);
-                HW.boxLeftServo.setPosition(0.3);
+                HW.boxRightServo.setPower(0.8);
+                HW.boxLeftServo.setPower(0.8);
             }
 
             if (gamepad2.x) {
-                HW.boxLeftServo.setPosition(0.0);
-                HW.boxRightServo.setPosition(0.0);
+                HW.boxLeftServo.setPower(0.0);
+                HW.boxRightServo.setPower(0.0);
             }
 
             if (gamepad2.left_bumper) {
@@ -144,9 +144,9 @@ public class LinearTeleOp extends LinearOpMode {
             }
 
             if (separated) {
-                HW.separatorServo.setPosition(0.3);
+                HW.separatorServo.setPower(0.8);
             } else {
-                HW.separatorServo.setPosition(0.0);
+                HW.separatorServo.setPower(0.0);
             }
 
             if (gamepad2.right_bumper) {
@@ -154,9 +154,9 @@ public class LinearTeleOp extends LinearOpMode {
             }
 
             if (hookUp) {
-                HW.hookServo.setPosition(0.6);
+                HW.hookServo.setPower(0.6);
             } else {
-                HW.hookServo.setPosition(0.0);
+                HW.hookServo.setPower(0.0);
             }
 
 

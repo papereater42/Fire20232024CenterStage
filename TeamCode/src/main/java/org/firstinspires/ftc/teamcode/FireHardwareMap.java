@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
@@ -24,11 +24,11 @@ public class FireHardwareMap {
 
     //create mechanism servos
     public DcMotor intakeMotor = null;
-    public Servo boxLeftServo = null;
-    public Servo boxRightServo = null;
-    public Servo doorServo = null;
-    public Servo separatorServo = null;
-    public Servo hookServo = null;
+    public CRServo boxLeftServo = null;
+    public CRServo boxRightServo = null;
+    public CRServo doorServo = null;
+    public CRServo separatorServo = null;
+    public CRServo hookServo = null;
 
     public BNO055IMU imu = null;
 
@@ -56,11 +56,11 @@ public class FireHardwareMap {
         slideRightMotor = HardwareMap.get(DcMotor.class, "slideRightMotor");
 
         //Making servo
-        boxLeftServo = HardwareMap.get(Servo.class, "leftServo");
-        boxRightServo = HardwareMap.get(Servo.class, "rightServo");
-        separatorServo = HardwareMap.get(Servo.class, "separatorServo");
-        doorServo = HardwareMap.get(Servo.class, "doorServo");
-        hookServo = HardwareMap.get(Servo.class, "hookServo");
+        boxLeftServo = HardwareMap.get(CRServo.class, "leftServo");
+        boxRightServo = HardwareMap.get(CRServo.class, "rightServo");
+        separatorServo = HardwareMap.get(CRServo.class, "separatorServo");
+        doorServo = HardwareMap.get(CRServo.class, "doorServo");
+        hookServo = HardwareMap.get(CRServo.class, "hookServo");
 
         //Set up motor direction
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -74,11 +74,11 @@ public class FireHardwareMap {
 
         actuatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        boxLeftServo.setDirection(Servo.Direction.REVERSE);
-        boxRightServo.setDirection(Servo.Direction.FORWARD);
-        separatorServo.setDirection(Servo.Direction.FORWARD);
-        doorServo.setDirection(Servo.Direction.FORWARD);
-        hookServo.setDirection(Servo.Direction.FORWARD);
+        boxLeftServo.setDirection(CRServo.Direction.REVERSE);
+        boxRightServo.setDirection(CRServo.Direction.FORWARD);
+        separatorServo.setDirection(CRServo.Direction.FORWARD);
+        doorServo.setDirection(CRServo.Direction.FORWARD);
+        hookServo.setDirection(CRServo.Direction.FORWARD);
 
         //Set motor mode
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -111,11 +111,11 @@ public class FireHardwareMap {
         slideRightMotor.setPower(0);
         actuatorMotor.setPower(0);
 
-        boxLeftServo.setPosition(0.0);
-        boxRightServo.setPosition(0.0);
-        separatorServo.setPosition(0.0);
-        doorServo.setPosition(0.0);
-        hookServo.setPosition(0.0);
+        boxLeftServo.setPower(0.0);
+        boxRightServo.setPower(0.0);
+        separatorServo.setPower(0.0);
+        doorServo.setPower(0.0);
+        hookServo.setPower(0.0);
 
 
 
