@@ -128,6 +128,7 @@ public class LinearTeleOp extends LinearOpMode {
             if (gamepad2.b) {
                 HW.doorServo.setPower(0.0);
             }
+            //
 
             if (gamepad2.a) {
                 HW.boxRightServo.setPower(0.8);
