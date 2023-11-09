@@ -74,7 +74,7 @@ public class FireHardwareMap {
 
         actuatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        boxLeftServo.setDirection(CRServo.Direction.REVERSE);
+        boxLeftServo.setDirection(CRServo.Direction.FORWARD);
         boxRightServo.setDirection(CRServo.Direction.FORWARD);
         separatorServo.setDirection(CRServo.Direction.FORWARD);
         doorServo.setDirection(CRServo.Direction.FORWARD);
@@ -111,14 +111,11 @@ public class FireHardwareMap {
         slideRightMotor.setPower(0);
         actuatorMotor.setPower(0);
 
-        boxLeftServo.setPower(0.0);
-        boxRightServo.setPower(0.0);
+//        boxLeftServo.setPower(0.0);
+//        boxRightServo.setPower(0.0);
         separatorServo.setPower(0.0);
         doorServo.setPower(0.0);
         hookServo.setPower(0.0);
-
-
-
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

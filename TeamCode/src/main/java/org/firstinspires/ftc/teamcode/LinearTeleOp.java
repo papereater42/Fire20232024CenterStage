@@ -20,7 +20,7 @@ public class LinearTeleOp extends LinearOpMode {
     Controls for gamepad2
     Dpad down - lower slides
     Dpad up - raise slides to high level
-    Dpad right - riase slides to mid level
+    Dpad right - raise slides to mid level
     Y - open door
     B - close door
     A - tilt box to scoring position
@@ -126,38 +126,27 @@ public class LinearTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.b) {
-                HW.doorServo.setPower(0.0);
+                HW.doorServo.setPower(0.1);
             }
-            //
+
 
             if (gamepad2.a) {
-                HW.boxRightServo.setPower(0.8);
-                HW.boxLeftServo.setPower(0.8);
-            }
-
-            if (gamepad2.x) {
-                HW.boxLeftServo.setPower(0.0);
-                HW.boxRightServo.setPower(0.0);
+                HW.boxRightServo.setPower(0.9);
+                HW.boxLeftServo.setPower(0.9);
+            } else if (gamepad2.x) {
+                HW.boxLeftServo.setPower(-0.9);
+                HW.boxRightServo.setPower(-0.9);
+            } else {
+//                HW.boxLeftServo.setPower(-0.9);
+//                HW.boxRightServo.setPower(-0.9);
             }
 
             if (gamepad2.left_bumper) {
-                separated = !separated;
-            }
-
-            if (separated) {
-                HW.separatorServo.setPower(0.8);
-            } else {
-                HW.separatorServo.setPower(0.0);
+                HW.separatorServo.setPower(0.9);
             }
 
             if (gamepad2.right_bumper) {
-                hookUp = !hookUp;
-            }
-
-            if (hookUp) {
                 HW.hookServo.setPower(0.6);
-            } else {
-                HW.hookServo.setPower(0.0);
             }
 
 
@@ -176,13 +165,14 @@ public class LinearTeleOp extends LinearOpMode {
             HW.backRightMotor.setPower(rightBackPower);
             HW.intakeMotor.setPower(intakeWheelPower/1.2);
             HW.actuatorMotor.setPower(yaw2);
-//            HW.slideRightMotor.setPower(axial2);
-//            HW.slideLeftMotor.setPower(axial2);
+
+
+
 
 
 
             // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Status", "Run Tim: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
 //            telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
@@ -196,8 +186,10 @@ public class LinearTeleOp extends LinearOpMode {
 //            telemetry.addData("backLeftMotor Operational: ", HW.backLeftMotor.isBusy());
 //            telemetry.addData("Current backRightMotor Encoder Position: ", HW.backRightMotor.getCurrentPosition());
 //            telemetry.addData("backRightMotor Operational: ", HW.backRightMotor.isBusy());
+            telemetry.addData("slideLeftMotorTicks target ", HW.slideLeftMotor.getTargetPosition());
+            telemetry.addData("boxLeftServo pow: ", HW.boxLeftServo.getPower());
             telemetry.update();
 
-            telemetry.update();
         }
-    }}
+    }
+}
