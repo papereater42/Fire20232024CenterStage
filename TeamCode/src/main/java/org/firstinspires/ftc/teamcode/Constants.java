@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 public final class Constants {
-    public static final int slideGroundLevelTicks = 30;
+    public static final int slideGroundLevelTicks = 0;
     public static final int lowSlideTicks = 800;
-    public static final int highSlideTicks = 1600;
+    public static final int highSlideTicks = 1400;
     public static final int highJunctionSlideTicks = 1200;
     public static final int coneBaseHeightTicks = 42;
 
