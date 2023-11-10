@@ -121,33 +121,33 @@ public class LinearTeleOp extends LinearOpMode {
                 HW.slideRightMotor.setTargetPosition(Constants.lowSlideTicks);
             }
 
+            double doorServoPower;
+
             if (gamepad2.y) {
-                HW.doorServo.setPower(0.8);
+                doorServoPower = 0.8;
             } else if (gamepad2.b) {
-                HW.doorServo.setPower(-0.8);
+                doorServoPower = -0.8;
             } else {
-                HW.doorServo.setPower(0.0);
+                doorServoPower = 0;
             }
 
+            double leftRightServoPower;
 
             if (gamepad2.a) {
-                HW.boxRightServo.setPower(0.9);
-                HW.boxLeftServo.setPower(0.9);
+                leftRightServoPower = 0.9;
             } else if (gamepad2.x) {
-                HW.boxLeftServo.setPower(-0.9);
-                HW.boxRightServo.setPower(-0.9);
+                leftRightServoPower = -0.9;
             } else {
-//                HW.boxLeftServo.setPower(-0.9);
-//                HW.boxRightServo.setPower(-0.9);
+                leftRightServoPower = 0.0;
             }
 
-            if (gamepad2.left_bumper) {
-                HW.separatorServo.setPower(0.9);
-            }
-
-            if (gamepad2.right_bumper) {
-                HW.hookServo.setPower(0.6);
-            }
+//            if (gamepad2.left_bumper) {
+//                HW.separatorServo.setPower(0.9);
+//            }
+//
+//            if (gamepad2.right_bumper) {
+//                HW.hookServo.setPower(0.6);
+//            }
 
 
 
@@ -166,7 +166,9 @@ public class LinearTeleOp extends LinearOpMode {
             HW.intakeMotor.setPower(intakeWheelPower/1.2);
             HW.actuatorMotor.setPower(yaw2);
 
-
+            HW.doorServo.setPower(doorServoPower);
+            HW.boxRightServo.setPower(leftRightServoPower);
+            HW.boxLeftServo.setPower(leftRightServoPower);
 
 
 
@@ -189,6 +191,7 @@ public class LinearTeleOp extends LinearOpMode {
             telemetry.addData("slideLeftMotorTicks target ", HW.slideLeftMotor.getTargetPosition());
             telemetry.addData("boxLeftServo pow: ", HW.boxLeftServo.getPower());
             telemetry.addData("doorServo power: ", HW.doorServo.getPower());
+            telemetry.addData("doorServo exists: ", HW.doorServo.getDeviceName());
             telemetry.update();
 
         }
