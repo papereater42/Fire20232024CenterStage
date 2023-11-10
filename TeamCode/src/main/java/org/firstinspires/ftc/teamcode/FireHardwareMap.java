@@ -117,14 +117,6 @@ public class FireHardwareMap {
 
 
 
-        slideLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slideRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slideLeftMotor.setTargetPosition(0);
-        slideRightMotor.setTargetPosition(0);
-        slideLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slideRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slideLeftMotor.setPower(0.6);
-        slideRightMotor.setPower(0.6);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         //return value of radians

@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
  */
 
-@TeleOp(name="Robot Oriented TeleOp", group="Linear Opmode")
+@TeleOp(name="Field Oriented TeleOp", group="Linear Opmode")
 public class FieldOriented extends LinearOpMode {
 
     /*
@@ -112,25 +112,12 @@ public class FieldOriented extends LinearOpMode {
 
 
 
-            double doorServoPower;
+            double doorServoPower = yaw2;
 
-            if (gamepad2.y) {
-                doorServoPower = 0.8;
-            } else if (gamepad2.b) {
-                doorServoPower = -0.8;
-            } else {
-                doorServoPower = 0;
-            }
 
-            double leftRightServoPower;
 
-            if (gamepad2.a) {
-                leftRightServoPower = 0.9;
-            } else if (gamepad2.x) {
-                leftRightServoPower = -0.9;
-            } else {
-                leftRightServoPower = 0.0;
-            }
+            double leftRightServoPower = gamepad2.right_stick_y;
+
 
             double separatorServoPower;
 
@@ -144,17 +131,24 @@ public class FieldOriented extends LinearOpMode {
                 separatorServoPower = 0.0;
             }
 
-            if (gamepad2.dpad_up) {
-                hookServoPower = 0.9;
-            }  else if (gamepad2.dpad_down) {
-                hookServoPower = -0.9;
+            if (gamepad2.dpad_left) {
+                hookServoPower = 1;
+            }  else if (gamepad2.dpad_right) {
+                hookServoPower = -1;
             } else {
                 hookServoPower = 0.0;
             }
+            double actuatorpower;
+            if (gamepad2.dpad_left) {
+                actuatorpower = 1;
+            }  else if (gamepad2.dpad_right) {
+                actuatorpower = -1;
+            } else {
+                actuatorpower = 0.0;
+            }
 
 
-
-//            axial2 = axial2/1.5;
+            axial2 = axial2/1.5;
 //
 //            lateral2 = lateral2/1.5;
 //
@@ -166,11 +160,11 @@ public class FieldOriented extends LinearOpMode {
             HW.backLeftMotor.setPower(leftBackPower);
             HW.backRightMotor.setPower(rightBackPower);
             HW.intakeMotor.setPower(intakeWheelPower/1.2);
-            HW.actuatorMotor.setPower(yaw2);
+            HW.actuatorMotor.setPower(actuatorpower);
 
             HW.doorServo.setPower(doorServoPower);
             HW.boxRightServo.setPower(leftRightServoPower*0.5);
-            HW.boxLeftServo.setPower(leftRightServoPower*0.45*0.5);
+            HW.boxLeftServo.setPower(leftRightServoPower*0.5);
             HW.separatorServo.setPower(separatorServoPower);
             HW.slideRightMotor.setPower(axial2);
             HW.slideLeftMotor.setPower(axial2);
