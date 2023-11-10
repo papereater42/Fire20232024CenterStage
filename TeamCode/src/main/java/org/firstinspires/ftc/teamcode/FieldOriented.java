@@ -138,13 +138,13 @@ public class FieldOriented extends LinearOpMode {
             } else {
                 hookServoPower = 0.0;
             }
-            double actuatorpower;
+            double actuatorPower;
             if (gamepad2.dpad_left) {
-                actuatorpower = 1;
+                actuatorPower = 1;
             }  else if (gamepad2.dpad_right) {
-                actuatorpower = -1;
+                actuatorPower = -1;
             } else {
-                actuatorpower = 0.0;
+                actuatorPower = 0.0;
             }
 
 
@@ -160,7 +160,7 @@ public class FieldOriented extends LinearOpMode {
             HW.backLeftMotor.setPower(leftBackPower);
             HW.backRightMotor.setPower(rightBackPower);
             HW.intakeMotor.setPower(intakeWheelPower);
-            HW.actuatorMotor.setPower(actuatorpower);
+            HW.actuatorMotor.setPower(actuatorPower);
 
             HW.doorServo.setPower(doorServoPower);
             HW.boxRightServo.setPower(leftRightServoPower*0.5);
