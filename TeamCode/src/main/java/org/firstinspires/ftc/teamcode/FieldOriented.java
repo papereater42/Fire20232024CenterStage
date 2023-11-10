@@ -116,7 +116,7 @@ public class FieldOriented extends LinearOpMode {
 
 
 
-            double leftRightServoPower = gamepad2.right_stick_y;
+            double leftRightServoPower = -gamepad2.right_stick_y;
 
 
             double separatorServoPower;
