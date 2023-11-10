@@ -111,9 +111,9 @@ public class FireHardwareMap {
 
 //        boxLeftServo.setPower(0.0);
 //        boxRightServo.setPower(0.0);
-        separatorServo.setPower(0.0);
-        doorServo.setPower(0.0);
-        hookServo.setPower(0.0);
+//        separatorServo.setPower(0.0);
+//        doorServo.setPower(0.0);
+//        hookServo.setPower(0.0);
 
 
 

@@ -141,13 +141,17 @@ public class LinearTeleOp extends LinearOpMode {
                 leftRightServoPower = 0.0;
             }
 
-//            if (gamepad2.left_bumper) {
-//                HW.separatorServo.setPower(0.9);
-//            }
-//
-//            if (gamepad2.right_bumper) {
-//                HW.hookServo.setPower(0.6);
-//            }
+            double separatorServoPower;
+            if (gamepad2.left_bumper) {
+                separatorServoPower = 0.9;
+            }  else if (gamepad2.right_bumper) {
+                separatorServoPower = -0.9;
+            } else {
+                separatorServoPower = 0.0;
+            }
+
+            double hookServoPower;
+
 
 
 
@@ -167,9 +171,9 @@ public class LinearTeleOp extends LinearOpMode {
             HW.actuatorMotor.setPower(yaw2);
 
             HW.doorServo.setPower(doorServoPower);
-            HW.boxRightServo.setPower(leftRightServoPower);
-            HW.boxLeftServo.setPower(leftRightServoPower);
-
+            HW.boxRightServo.setPower(leftRightServoPower*0.5);
+            HW.boxLeftServo.setPower(leftRightServoPower*0.45*0.5);
+            HW.separatorServo.setPower(separatorServoPower);
 
 
 
