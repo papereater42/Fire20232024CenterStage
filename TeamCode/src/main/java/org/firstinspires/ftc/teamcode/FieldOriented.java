@@ -81,7 +81,7 @@ public class FieldOriented extends LinearOpMode {
             double leftBackPower   = axial - lateral + yaw;
             double rightBackPower  = axial + lateral - yaw;
 
-            double intakeWheelPower = (gamepad1.right_trigger-gamepad1.left_trigger);
+            double intakeWheelPower = (gamepad2.right_trigger-gamepad2.left_trigger);
 
 
             // Normalize the values so no wheel power exceeds 100%
@@ -159,7 +159,7 @@ public class FieldOriented extends LinearOpMode {
             HW.frontRightMotor.setPower(rightFrontPower);
             HW.backLeftMotor.setPower(leftBackPower);
             HW.backRightMotor.setPower(rightBackPower);
-            HW.intakeMotor.setPower(intakeWheelPower/1.2);
+            HW.intakeMotor.setPower(intakeWheelPower);
             HW.actuatorMotor.setPower(actuatorpower);
 
             HW.doorServo.setPower(doorServoPower);
