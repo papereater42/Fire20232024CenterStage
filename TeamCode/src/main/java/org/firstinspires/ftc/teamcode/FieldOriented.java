@@ -3,7 +3,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
 /**
 
  *
@@ -14,109 +13,190 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
  */
 
-@TeleOp(name="Field Oriented Teleop", group="Linear Opmode")
+@TeleOp(name="Robot Oriented TeleOp", group="Linear Opmode")
 public class FieldOriented extends LinearOpMode {
+
+    /*
+    Controls for gamepad2
+    Dpad down - lower slides
+    Dpad up - raise slides to high level
+    Dpad right - raise slides to mid level
+    Y - open door
+    B - close door
+    A - tilt box to scoring position
+    X - return box to 0
+    Left bumper - toggle separator
+    Right bumper - toggle hook servo up or down
+    Left joystick y - spin intake wheels
+    Right joystick x - actuator motor
+     */
+
 
     //ServoImplEx servo;
     //PwmControl.PwmRange range = new PwmControl.PwmRange(533,2425);
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
-    private FireHardwareMap robot = null;
-    private ActiveLocation activeLocation = null;
+    private FireHardwareMap HW = null;
+
     @Override
-///
+
     public void runOpMode() {
-        robot = new FireHardwareMap(this.hardwareMap);
-        activeLocation = new ActiveLocation(robot);
-        double i = 0.0;
-        double drive;
-        double strafe;
-        double turn;
+        HW = new FireHardwareMap(this.hardwareMap);
 
-        double frontLeftPower;
-        double frontRightPower;
-        double backLeftPower;
-        double backRightPower;
+        //servo = hardwareMap.get(ServoImplEx.class, "left_hand");
+        //servo.setPwmRange(range);
 
-        double axial1;
 
-        double currentAngle;
-
-        double maxMotorSpeed = 0.9;
-
-        double maxPower;
-        double axial2;
-        int filler = 0;
-
-        int heightDifferential = 0;
+        // Wait for the game to start (driver presses PLAY)
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
+        runtime.reset();
+
+        boolean separated = false;
+        boolean hookUp = false;
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            currentAngle = activeLocation.getTrimmedAngleInRadians();
+            double max;
+            double i =0.0;
 
-            drive = -gamepad1.left_stick_y * Math.cos(currentAngle) +
-                    gamepad1.left_stick_x * Math.sin(currentAngle);
-            strafe = gamepad1.left_stick_x * Math.cos(currentAngle) -
-                    -gamepad1.left_stick_y * Math.sin(currentAngle);
-            turn = gamepad1.right_stick_x;
 
-            axial1   = -gamepad2.left_stick_y;
+            // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
+            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            double lateral =  gamepad1.left_stick_x * 1.1;
+            double yaw     =  gamepad1.right_stick_x;
 
-            axial2 = -gamepad2.right_stick_y;
 
-            frontLeftPower = drive + strafe + turn;
-            frontRightPower = drive - strafe - turn;
-            backLeftPower = drive - strafe + turn;
-            backRightPower = drive + strafe - turn;
+            double axial2 =  -gamepad2.left_stick_y;
+//            double lateral2 =  gamepad2.left_stick_x * 1.1;
+            double yaw2     =  gamepad2.right_stick_x;
 
+
+            // Combine the joystick requests for each axis-motion to determine each wheel's power.
+            // Set up a variable for each drive wheel to save the power level for telemetry.
+            double leftFrontPower  = axial + lateral + yaw;
+            double rightFrontPower = axial - lateral - yaw;
+            double leftBackPower   = axial - lateral + yaw;
+            double rightBackPower  = axial + lateral - yaw;
+
+            double intakeWheelPower = (gamepad1.right_trigger-gamepad1.left_trigger);
+
+
+            // Normalize the values so no wheel power exceeds 100%
+            // This ensures that the robot maintains the desired motion.
+            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+            max = Math.max(max, Math.abs(leftBackPower));
+            max = Math.max(max, Math.abs(rightBackPower));
             i = gamepad1.right_trigger;
-            if (Math.abs(frontLeftPower) > 1 || Math.abs(frontRightPower) > 1 || Math.abs(backLeftPower) > 1 || Math.abs(backRightPower) > 1){
-                maxPower = Math.max(Math.abs(frontLeftPower), Math.max(Math.abs(frontRightPower), Math.max(Math.abs(backLeftPower), Math.abs(backRightPower))));
-
-                //fix problem
-                frontLeftPower /= maxPower;
-                frontRightPower /= maxPower;
-                backLeftPower /= maxPower;
-                backRightPower /= maxPower;
+            if (max > 1) {
+                leftFrontPower  /= max;
+                rightFrontPower /= max;
+                leftBackPower   /= max;
+                rightBackPower  /= max;
+//                axial2 /=max;
+                i /= max;
+//                (lateral2)/=max;
+                yaw2 /=max;
             }
-
             if(gamepad1.right_bumper){
-                filler=0;
+                i=i;
             }
             else{
-                frontLeftPower /= 1.8;
-                frontRightPower /= 1.8;
-                backLeftPower /= 1.8;
-                backRightPower /= 1.8;
+                leftFrontPower  /= 2;
+                rightFrontPower /= 2;
+                leftBackPower   /= 2;
+                rightBackPower  /= 2;
             }
 
-            robot.frontLeftMotor.setPower(frontLeftPower * maxMotorSpeed);
-            robot.frontRightMotor.setPower(frontRightPower * maxMotorSpeed);
-            robot.backRightMotor.setPower(backRightPower * maxMotorSpeed);
-            robot.backLeftMotor.setPower(backLeftPower * maxMotorSpeed);
-            robot.intakeMotor.setPower(i);
+
+
+            double doorServoPower;
+
+            if (gamepad2.y) {
+                doorServoPower = 0.8;
+            } else if (gamepad2.b) {
+                doorServoPower = -0.8;
+            } else {
+                doorServoPower = 0;
+            }
+
+            double leftRightServoPower;
+
+            if (gamepad2.a) {
+                leftRightServoPower = 0.9;
+            } else if (gamepad2.x) {
+                leftRightServoPower = -0.9;
+            } else {
+                leftRightServoPower = 0.0;
+            }
+
+            double separatorServoPower;
+
+            double hookServoPower;
+
+            if (gamepad2.left_bumper) {
+                separatorServoPower = 0.9;
+            }  else if (gamepad2.right_bumper) {
+                separatorServoPower = -0.9;
+            } else {
+                separatorServoPower = 0.0;
+            }
+
+            if (gamepad2.dpad_up) {
+                hookServoPower = 0.9;
+            }  else if (gamepad2.dpad_down) {
+                hookServoPower = -0.9;
+            } else {
+                hookServoPower = 0.0;
+            }
 
 
 
+//            axial2 = axial2/1.5;
+//
+//            lateral2 = lateral2/1.5;
+//
+            yaw2 = yaw2/1.5;
 
-            //TODO: Telemetry
-            telemetry.addData("Version: ", "FieldOriented TeleOp 2.0.1");
+            // Send calculated power to wheels
+            HW.frontLeftMotor.setPower(leftFrontPower);
+            HW.frontRightMotor.setPower(rightFrontPower);
+            HW.backLeftMotor.setPower(leftBackPower);
+            HW.backRightMotor.setPower(rightBackPower);
+            HW.intakeMotor.setPower(intakeWheelPower/1.2);
+            HW.actuatorMotor.setPower(yaw2);
 
-            telemetry.addData("Front Left Motor Power: ", robot.frontLeftMotor.getPower());
-            telemetry.addData("Front Right Motor Power: ", robot.frontRightMotor.getPower());
-            telemetry.addData("Back Left Motor Power: ", robot.backLeftMotor.getPower());
-            telemetry.addData("Back Right Motor Power: ", robot.backRightMotor.getPower());
+            HW.doorServo.setPower(doorServoPower);
+            HW.boxRightServo.setPower(leftRightServoPower*0.5);
+            HW.boxLeftServo.setPower(leftRightServoPower*0.45*0.5);
+            HW.separatorServo.setPower(separatorServoPower);
+            HW.slideRightMotor.setPower(axial2);
+            HW.slideLeftMotor.setPower(axial2);
+            HW.hookServo.setPower(hookServoPower);
 
-            telemetry.addData("Current frontLeftMotor Encoder Position: ", robot.frontLeftMotor.getCurrentPosition());
-            telemetry.addData("frontLeftMotor Operational: ", robot.frontLeftMotor.isBusy());
-            telemetry.addData("Current frontRightMotor Encoder Position: ", robot.frontRightMotor.getCurrentPosition());
-            telemetry.addData("frontRightMotor Operational: ", robot.frontRightMotor.isBusy());
-            telemetry.addData("Current backLeftMotor Encoder Position: ", robot.backLeftMotor.getCurrentPosition());
-            telemetry.addData("backLeftMotor Operational: ", robot.backLeftMotor.isBusy());
-            telemetry.addData("Current backRightMotor Encoder Position: ", robot.backRightMotor.getCurrentPosition());
-            telemetry.addData("backRightMotor Operational: ", robot.backRightMotor.isBusy());
+
+
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Tim: " + runtime.toString());
+            telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
+            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
+//            telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
+//            telemetry.addData("Intake Operational: ", HW.intakeMotor.isBusy());
+//            telemetry.addData("Intake Number: ", i);
+//            telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.frontLeftMotor.getCurrentPosition());
+//            telemetry.addData("frontLeftMotor Operational: ", HW.frontLeftMotor.isBusy());
+//            telemetry.addData("Current frontRightMotor Encoder Position: ", HW.frontRightMotor.getCurrentPosition());
+//            telemetry.addData("frontRightMotor Operational: ", HW.frontRightMotor.isBusy());
+//            telemetry.addData("Current backLeftMotor Encoder Position: ", HW.backLeftMotor.getCurrentPosition());
+//            telemetry.addData("backLeftMotor Operational: ", HW.backLeftMotor.isBusy());
+//            telemetry.addData("Current backRightMotor Encoder Position: ", HW.backRightMotor.getCurrentPosition());
+//            telemetry.addData("backRightMotor Operational: ", HW.backRightMotor.isBusy());
+            telemetry.addData("slideLeftMotorTicks target ", HW.slideLeftMotor.getTargetPosition());
+            telemetry.addData("boxLeftServo pow: ", HW.boxLeftServo.getPower());
+            telemetry.addData("doorServo power: ", HW.doorServo.getPower());
+            telemetry.addData("doorServo exists: ", HW.doorServo.getDeviceName());
             telemetry.update();
 
         }
