@@ -12,9 +12,9 @@ public class BasicAutoDriving {
     public DcMotor backRightMotor = null;
 
     //TODO: tune this again for this bot
-    double ticksPerCentimeterDrive = 100;
-    double ticksPerCentimeterStrafe = 150;
-    double ticksPerDegree = 5;
+    double ticksPerCentimeterDrive = 17.8;
+    double ticksPerCentimeterStrafe = 21.3;
+    double ticksPerDegree = 12;
 
     int error = 8;
 
@@ -97,5 +97,7 @@ public class BasicAutoDriving {
         backLeftMotor.setTargetPosition(backLeftTargetPosition);
         backRightMotor.setTargetPosition(backRightTargetPosition);
     }
+
+
 
 }
