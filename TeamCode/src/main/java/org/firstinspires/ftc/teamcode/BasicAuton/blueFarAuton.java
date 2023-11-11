@@ -24,7 +24,7 @@ public class blueFarAuton extends LinearOpMode {
         if (opModeIsActive()){
 
 
-            scorePreLoaded(0, autoDriving);
+            scorePreLoaded(1, autoDriving);
             sleep(2000);
 
 
@@ -36,11 +36,25 @@ public class blueFarAuton extends LinearOpMode {
         if (tickID == 0) { // middle tick
             bad.drive(-65);
             sleep(2000);
-        } else if (tickID == 1) {
-            bad.turn(-10);
-            sleep(500);
-            bad.drive(-38);
+            bad.drive(64);
             sleep(2000);
+            bad.turn(-90);
+            sleep(1500);
+            bad.drive(190);
+            sleep(9000);
+        } else if (tickID == 1) {
+            bad.turn(-12);
+            sleep(500);
+            bad.drive(-40);
+            sleep(2000);
+            bad.turn(12);
+            sleep(500);
+            bad.drive(32);
+            sleep(2000);
+            bad.turn(-90);
+            sleep(1500);
+            bad.drive(185);
+            sleep(9000);
         } else if (tickID == 2) {
 //            bad.drive(-52);
 //            sleep(2000);
