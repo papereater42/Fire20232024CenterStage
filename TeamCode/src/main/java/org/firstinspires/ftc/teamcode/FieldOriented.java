@@ -37,12 +37,12 @@ public class FieldOriented extends LinearOpMode {
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
     private FireHardwareMap HW = null;
-
+    private ActiveLocation activeLocation = null;
     @Override
 
     public void runOpMode() {
         HW = new FireHardwareMap(this.hardwareMap);
-
+        activeLocation = new ActiveLocation(HW);
         //servo = hardwareMap.get(ServoImplEx.class, "left_hand");
         //servo.setPwmRange(range);
 
@@ -56,16 +56,19 @@ public class FieldOriented extends LinearOpMode {
 
         boolean separated = false;
         boolean hookUp = false;
-
+        double currentAngle;
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             double max;
             double i =0.0;
+            currentAngle = activeLocation.getTrimmedAngleInRadians();
 
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral =  gamepad1.left_stick_x * 1.1;
+            double axial   = -gamepad1.left_stick_y * Math.cos(currentAngle) +
+                    gamepad1.left_stick_x * Math.sin(currentAngle); // Note: pushing stick forward gives negative value
+            double lateral =  gamepad1.left_stick_x * Math.cos(currentAngle) -
+                    -gamepad1.left_stick_y * Math.sin(currentAngle);
             double yaw     =  gamepad1.right_stick_x;
 
 
@@ -163,7 +166,7 @@ public class FieldOriented extends LinearOpMode {
             HW.actuatorMotor.setPower(actuatorPower);
 
             HW.doorServo.setPower(doorServoPower);
-            HW.boxRightServo.setPower(leftRightServoPower*0.5);
+            HW.boxRightServo.setPower(-leftRightServoPower*0.5);
             HW.boxLeftServo.setPower(leftRightServoPower*0.5);
             HW.separatorServo.setPower(separatorServoPower);
             HW.slideRightMotor.setPower(axial2);
