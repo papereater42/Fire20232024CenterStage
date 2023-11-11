@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
+
+@Config
 public final class Constants {
     public static final int slideGroundLevelTicks = 0;
     public static final int lowSlideTicks = 800;
@@ -44,4 +47,29 @@ public final class Constants {
     public static final double mileToMillimeter = 4828032;
 
     public static final double inchesToEncoderTicks = 0.0;
+
+    public static String position = "Middle";
+
+
+    public static int blueSidered_min = 110;
+    public static int blueSide_red_max = 200;
+    public static int blueSide_green_min = 50;
+    public static int blueSide_green_max = 210;
+    public static int blueSide_blue_min = 40;
+    public static int blueSide_blue_max = 120;
+
+    public static int redSidered_min = 110;
+    public static int redSide_red_max = 200;
+    public static int redSide_green_min = 50;
+    public static int redSide_green_max = 210;
+    public static int redSide_blue_min = 40;
+    public static int redSide_blue_max = 120;
+
+    public static int final_red_min = 0;
+    public static int final_red_max = 126;
+    public static int final_green_min = 0;
+    public static int final_green_max = 256;
+    public static int final_blue_min = 0;
+    public static int final_blue_max = 256;
+
 }
