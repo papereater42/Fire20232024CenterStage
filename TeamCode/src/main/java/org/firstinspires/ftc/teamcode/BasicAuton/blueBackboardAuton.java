@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FireHardwareMap;
+import org.firstinspires.ftc.teamcode.vision.PositionDetector;
 
 @Autonomous(name="blueBackboardAuton", group="Auton")
 public class blueBackboardAuton extends LinearOpMode {
@@ -14,7 +15,8 @@ public class blueBackboardAuton extends LinearOpMode {
     public void runOpMode() {
         robot = new FireHardwareMap(this.hardwareMap);
         BasicAutoDriving autoDriving = new BasicAutoDriving(robot.frontLeftMotor, robot.frontRightMotor, robot.backLeftMotor, robot.backRightMotor);
-
+        PositionDetector pd = new PositionDetector(hardwareMap, telemetry);
+        pd.startStreaming();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -23,8 +25,8 @@ public class blueBackboardAuton extends LinearOpMode {
 
         if (opModeIsActive()){
 
-
-            scorePreLoaded(2, autoDriving);
+            int tick = parseDirection(pd.getValue());
+            scorePreLoaded(tick, autoDriving);
             sleep(2000);
 
 
@@ -60,5 +62,16 @@ public class blueBackboardAuton extends LinearOpMode {
             bad.drive(50);
             sleep(9000);
         }
+    }
+
+    public int parseDirection(String dir) {
+        if (dir == "left") {
+            return 1;
+        } else if (dir == "center") {
+            return 0;
+        } else if (dir == "right") {
+            return 2;
+        }
+        return 0;
     }
 }
