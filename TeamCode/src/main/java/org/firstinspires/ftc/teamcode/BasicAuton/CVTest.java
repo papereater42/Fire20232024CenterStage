@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.BasicAuton;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -24,6 +25,7 @@ public class CVTest extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while (opModeIsActive()){
+            robot.led.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
             pd.getPosition();
             telemetry.addData("Here", pd.getValue());
             telemetry.addData("count", count);

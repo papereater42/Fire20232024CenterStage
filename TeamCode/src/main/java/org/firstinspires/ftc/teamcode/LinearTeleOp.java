@@ -196,6 +196,7 @@ public class LinearTeleOp extends LinearOpMode {
             telemetry.addData("boxLeftServo pow: ", HW.boxLeftServo.getPower());
             telemetry.addData("doorServo power: ", HW.doorServo.getPower());
             telemetry.addData("doorServo exists: ", HW.doorServo.getDeviceName());
+            telemetry.addData("light: ", HW.color.getRawLightDetectedMax());
             telemetry.update();
 
         }

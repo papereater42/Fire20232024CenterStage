@@ -65,11 +65,11 @@ public final class Constants {
     public static int redSide_blue_min = 40;
     public static int redSide_blue_max = 120;
 
-    public static int final_red_min = 126;
+    public static int final_red_min = 150;
     public static int final_red_max = 255;
-    public static int final_green_min = 126;
+    public static int final_green_min = 150;
     public static int final_green_max = 255;
-    public static int final_blue_min = 126;
+    public static int final_blue_min = 150;
     public static int final_blue_max = 255;
 
 }
