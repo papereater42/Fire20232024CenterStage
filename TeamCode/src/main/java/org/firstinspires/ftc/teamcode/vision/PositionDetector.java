@@ -42,7 +42,7 @@ public class PositionDetector {
                 "id",
                 hardwareMap.appContext.getPackageName()
         );
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Camera"), cameraMonitorViewId);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
 
 

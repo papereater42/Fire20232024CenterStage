@@ -3,6 +3,16 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Angle.fromRadians;
 
+import org.firstinspires.ftc.teamcode.FireHardwareMap;
+import org.firstinspires.ftc.teamcode.Angle;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+
+import static org.firstinspires.ftc.teamcode.Angle.fromRadians;
+
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 

@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 public class FireHardwareMap {
     //create drivetrain motors
@@ -29,6 +31,10 @@ public class FireHardwareMap {
     public CRServo doorServo = null;
     public CRServo separatorServo = null;
     public CRServo hookServo = null;
+
+    public RevBlinkinLedDriver led = null;
+
+    public ColorRangeSensor color = null;
 
     public BNO055IMU imu = null;
 
@@ -54,7 +60,8 @@ public class FireHardwareMap {
         actuatorMotor = HardwareMap.get(DcMotor.class, "actuatorMotor");
         slideLeftMotor = HardwareMap.get(DcMotor.class, "slideLeftMotor");
         slideRightMotor = HardwareMap.get(DcMotor.class, "slideRightMotor");
-
+        led = HardwareMap.get(RevBlinkinLedDriver.class, "led");
+        color = HardwareMap.get(ColorRangeSensor.class, "color");
         //Making servo
         boxLeftServo = HardwareMap.get(CRServo.class, "leftServo");
         boxRightServo = HardwareMap.get(CRServo.class, "rightServo");
@@ -87,8 +94,8 @@ public class FireHardwareMap {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        slideLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slideRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slideLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slideRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Set zero power behavior
 

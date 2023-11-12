@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -133,7 +134,12 @@ public class FieldOriented extends LinearOpMode {
             } else {
                 separatorServoPower = 0.0;
             }
-
+            if (1<2) {
+                HW.led.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            }
+            else {
+                HW.led.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            }
             if (gamepad2.dpad_left) {
                 hookServoPower = 1;
             }  else if (gamepad2.dpad_right) {
@@ -151,7 +157,7 @@ public class FieldOriented extends LinearOpMode {
             }
 
 
-            axial2 = axial2/1.5;
+            axial2 = axial2;
 //
 //            lateral2 = lateral2/1.5;
 //
@@ -181,7 +187,7 @@ public class FieldOriented extends LinearOpMode {
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
 //            telemetry.addData("Servo  left/Right", "%4.2f, %4.2f", axial2, axial2);
 //            telemetry.addData("Intake Operational: ", HW.intakeMotor.isBusy());
-//            telemetry.addData("Intake Number: ", i);
+            telemetry.addData("Intake Number: ", i);
 //            telemetry.addData("Current frontLeftMotor Encoder Position: ", HW.frontLeftMotor.getCurrentPosition());
 //            telemetry.addData("frontLeftMotor Operational: ", HW.frontLeftMotor.isBusy());
 //            telemetry.addData("Current frontRightMotor Encoder Position: ", HW.frontRightMotor.getCurrentPosition());
@@ -194,6 +200,9 @@ public class FieldOriented extends LinearOpMode {
             telemetry.addData("boxLeftServo pow: ", HW.boxLeftServo.getPower());
             telemetry.addData("doorServo power: ", HW.doorServo.getPower());
             telemetry.addData("doorServo exists: ", HW.doorServo.getDeviceName());
+            telemetry.addData("Color red: ", HW.color.red());
+            telemetry.addData("Color greed: ", HW.color.green());
+            telemetry.addData("Color blue:", HW.color.blue());
             telemetry.update();
 
         }
