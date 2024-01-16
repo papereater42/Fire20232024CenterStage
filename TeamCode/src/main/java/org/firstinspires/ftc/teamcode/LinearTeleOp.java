@@ -150,6 +150,16 @@ public class LinearTeleOp extends LinearOpMode {
                 separatorServoPower = 0.0;
             }
 
+            double airplaneServoPower;
+
+            if (gamepad1.y) {
+                airplaneServoPower = 0.8;
+            } else if (gamepad1.b) {
+                airplaneServoPower = -0.8;
+            } else {
+                airplaneServoPower = 0.0;
+            }
+
             double hookServoPower;
 
 
@@ -174,6 +184,7 @@ public class LinearTeleOp extends LinearOpMode {
             HW.boxRightServo.setPower(leftRightServoPower*0.5);
             HW.boxLeftServo.setPower(leftRightServoPower*0.45*0.5);
             HW.separatorServo.setPower(separatorServoPower);
+            HW.airplaneServo.setPower(airplaneServoPower);
 
 
 

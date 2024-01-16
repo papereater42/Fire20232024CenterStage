@@ -31,6 +31,7 @@ public class FireHardwareMap {
     public CRServo doorServo = null;
     public CRServo separatorServo = null;
     public CRServo hookServo = null;
+    public CRServo airplaneServo = null;
 
     public RevBlinkinLedDriver led = null;
 
@@ -68,6 +69,7 @@ public class FireHardwareMap {
         separatorServo = HardwareMap.get(CRServo.class, "separatorServo");
         doorServo = HardwareMap.get(CRServo.class, "doorServo");
         hookServo = HardwareMap.get(CRServo.class, "hookServo");
+        airplaneServo = HardwareMap.get(CRServo.class, "airplaneServo");
 
         //Set up motor direction
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -86,6 +88,7 @@ public class FireHardwareMap {
         separatorServo.setDirection(CRServo.Direction.FORWARD);
         doorServo.setDirection(CRServo.Direction.FORWARD);
         hookServo.setDirection(CRServo.Direction.FORWARD);
+        airplaneServo.setDirection(CRServo.Direction.FORWARD);
 
         //Set motor mode
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
